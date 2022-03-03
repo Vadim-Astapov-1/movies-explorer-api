@@ -9,7 +9,7 @@ const { auth } = require('../middlewares/auth');
 const logout = require('../middlewares/logout');
 const { validateCreateUser, validateLogin } = require('../middlewares/validations');
 
-router.post('/signin', validateLogin, login)
+router.post('/signin', validateLogin, login);
 router.post('/signup', validateCreateUser, createUser);
 
 router.use(auth);
@@ -23,4 +23,3 @@ router.use((req, res, next) => {
 });
 
 module.exports = router;
-

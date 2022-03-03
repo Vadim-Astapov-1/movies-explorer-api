@@ -1,4 +1,4 @@
-const { celebrate, Joi } = require("celebrate");
+const { celebrate, Joi } = require('celebrate');
 
 const validateUpdateProfile = celebrate({
   body: Joi.object().keys({
@@ -13,7 +13,7 @@ const validateCreateUser = celebrate({
     email: Joi.string().required().email(),
     password: Joi.string().required(),
   }),
-})
+});
 
 const validateLogin = celebrate({
   body: Joi.object().keys({
@@ -45,7 +45,7 @@ const validateDeleteMovie = celebrate({
   }),
 });
 
-module.exports  = {
+module.exports = {
   validateUpdateProfile,
   validateCreateUser,
   validateLogin,

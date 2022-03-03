@@ -12,8 +12,9 @@ const router = require('./routers/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./middlewares/errorHandler');
 const limiter = require('./middlewares/rate-limit');
+const cors = require('./middlewares/cors');
 
-const { PORT = 3000, mongod = 'mongodb://localhost:27017/name'} = process.env;
+const { PORT = 3000, mongod = 'mongodb://localhost:27017/name' } = process.env;
 const app = express();
 app.use(helmet());
 app.use(limiter);
@@ -29,6 +30,8 @@ mongoose.connect(mongod)
 
 app.use(cookieParser());
 app.use(requestLogger);
+
+app.use(cors);
 
 app.use(router);
 
