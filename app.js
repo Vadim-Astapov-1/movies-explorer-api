@@ -14,7 +14,7 @@ const errorHandler = require('./middlewares/errorHandler');
 const limiter = require('./middlewares/rate-limit');
 const cors = require('./middlewares/cors');
 
-const { PORT = 3000, mongod = 'mongodb://localhost:27017/name' } = process.env;
+const { NODE_ENV, PORT = 3000, mongod } = process.env;
 const app = express();
 app.use(helmet());
 app.use(limiter);
@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-mongoose.connect(mongod)
+mongoose.connect(NODE_ENV === 'production' ? mongod : 'mongodb://localhost:27017/name')
   .catch((err) => {
     console.log(err);
   });
