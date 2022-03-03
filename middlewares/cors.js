@@ -1,6 +1,5 @@
 const allowedCors = [
-  // заменить
-  'https://vamesto.students.nomoredomains.work',
+  'https://va-movies-explorer.nomoredomains.xyzk',
 ];
 
 const cors = (req, res, next) => {
