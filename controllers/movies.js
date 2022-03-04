@@ -9,9 +9,7 @@ const getMovies = (req, res, next) => {
     .then((movies) => {
       res.status(200).send(movies);
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 const createMovie = (req, res, next) => {
@@ -48,10 +46,9 @@ const createMovie = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные при создании фильма'));
-      } else {
-        next(err);
+        return next(new BadRequestError('Переданы некорректные данные при создании фильма'));
       }
+      return next(err);
     });
 };
 
@@ -60,23 +57,19 @@ const deleteMovie = (req, res, next) => {
     .then((movie) => {
       if (movie) {
         if (req.user._id !== movie.owner.toString()) {
-          throw new ForbiddenError('Нельзя удалить чужую карточку');
+          return next(new ForbiddenError('Нельзя удалить чужой фильм'));
         }
 
-        movie.remove();
-      } else {
-        throw new NotFoundError('Передан несуществующий _id карточки');
+        return movie.remove()
+          .then(() => res.status(200).send({ message: 'Фильм успешно удален' }));
       }
-    })
-    .then(() => {
-      res.status(200).send({ message: 'Фильм успешно удален' });
+      return next(new NotFoundError('Передан несуществующий _id фильма'));
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('Переданы некорректные данные при удалении карточки'));
-      } else {
-        next(err);
+        return next(new BadRequestError('Переданы некорректные данные при удалении фильма'));
       }
+      return next(err);
     });
 };
 

@@ -13,37 +13,30 @@ const getUser = (req, res, next) => {
   User.findById({ _id: req.user._id })
     .then((user) => {
       if (user) {
-        res.status(200).send(user);
-      } else {
-        next(new NotFoundError('Пользователь с указанным _id не найден'));
+        return res.status(200).send(user);
       }
+      return next(new NotFoundError('Пользователь с указанным _id не найден'));
     })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequestError('Переданы некорректные данные при поиске пользователя'));
-      } else {
-        next(err);
-      }
-    });
+    .catch(next);
 };
 
 const updateProfile = (req, res, next) => {
   const { name, email } = req.body;
-
   User.findByIdAndUpdate(req.user._id, { name, email }, { new: true, runValidators: true })
     .then((user) => {
       if (user) {
-        res.status(200).send(user);
-      } else {
-        next(new NotFoundError('Пользователь с указанным _id не найден'));
+        return res.status(200).send(user);
       }
+      return next(new NotFoundError('Пользователь с указанным _id не найден'));
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные при обновлении профиля'));
-      } else {
-        next(err);
+        return next(new BadRequestError('Переданы некорректные данные при обновлении профиля'));
       }
+      if (err.code === 11000) {
+        return next(new ConflictError('Такой email уже занят'));
+      }
+      return next(err);
     });
 };
 
@@ -70,12 +63,12 @@ const createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError(`${Object.values(err.errors).map((error) => error.message).join(', ')}`));
-      } else if (err.code === 11000) {
-        next(new ConflictError('Такой email уже существует'));
-      } else {
-        next(err);
+        return next(new BadRequestError(`${Object.values(err.errors).map((error) => error.message).join(', ')}`));
       }
+      if (err.code === 11000) {
+        return next(new ConflictError('Такой email уже существует'));
+      }
+      return next(err);
     });
 };
 
@@ -85,7 +78,7 @@ const login = (req, res, next) => {
     .then((user) => {
       if (user) {
         const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'user-secret-key', { expiresIn: '7d' });
-        res
+        return res
           .cookie('authorization', `Bearer ${token}`, {
             maxAge: 3600000 * 24 * 7,
             secure: true,
@@ -99,13 +92,10 @@ const login = (req, res, next) => {
               email: user.email,
             },
           });
-      } else {
-        next(new UnauthorizedError('Неправильные почта или пароль'));
       }
+      return next(new UnauthorizedError('Неправильные почта или пароль'));
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 module.exports = {

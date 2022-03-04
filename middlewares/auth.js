@@ -8,7 +8,7 @@ const auth = (req, res, next) => {
   const authCookies = req.cookies.authorization;
 
   if (!authCookies || !authCookies.startsWith('Bearer ')) {
-    next(new UnauthorizedError('Необходима авторизация'));
+    return next(new UnauthorizedError('Необходима авторизация'));
   }
 
   let payload;
@@ -18,11 +18,11 @@ const auth = (req, res, next) => {
   try {
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'user-secret-key');
   } catch (err) {
-    next(new UnauthorizedError('Необходима авторизация'));
+    return next(new UnauthorizedError('Необходима авторизация'));
   }
 
   req.user = payload;
-  next();
+  return next();
 };
 
 module.exports = {
