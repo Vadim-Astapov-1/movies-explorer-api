@@ -1,12 +1,13 @@
 const allowedCors = [
   'https://va-movies-explorer.nomoredomains.xyz',
   'http://va-movies-explorer.nomoredomains.xyz',
+  'http://localhost:3000',
 ];
 
 const cors = (req, res, next) => {
   const { origin } = req.headers;
   const { method } = req;
-  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PATCH,POST,DELETE'; // без put
+  const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PATCH,POST,DELETE';
   const requestHeaders = req.headers['access-control-request-headers'];
 
   if (allowedCors.includes(origin)) {

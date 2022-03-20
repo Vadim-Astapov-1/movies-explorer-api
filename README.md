@@ -1,8 +1,19 @@
 # movies-explorer-api
 
-Backend проекта __movies-explorer (bold)__.
+Backend проекта __movies-explorer__.
 
-## Подробное описание будет в будущем :)
+## Роуты
+
+- /signup - post(Создать профиль)
+- /signin - post(Войти)
+- /signout - get(Удалить куки)
+
+- /users/me - get(Получить профиль)
+- /users/me - patch(Обновить профиль)
+
+- /movies - get(Получить сохраненные фильмы)
+- /movies - post(Сохранить фильм)
+- /movies/:movieId - delete(Удалить сохраненный фильм)
 
 ## Ссылка на сервер:
 
