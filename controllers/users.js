@@ -81,7 +81,7 @@ const login = (req, res, next) => {
         return res
           .cookie('authorization', `Bearer ${token}`, {
             maxAge: 3600000 * 24 * 7,
-            secure: true,
+            secure: false,
             httpOnly: true,
             sameSite: true,
           })
