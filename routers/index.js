@@ -12,7 +12,7 @@ const { validateCreateUser, validateLogin } = require('../middlewares/validation
 router.post('/signin', validateLogin, login);
 router.post('/signup', validateCreateUser, createUser);
 
-router.use(auth);
+//router.use(auth);
 
 router.get('/signout', logout);
 router.use('/users', userRouter);
