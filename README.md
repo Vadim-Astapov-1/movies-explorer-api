@@ -1,23 +1,62 @@
 # movies-explorer-api
 
-Backend проекта __movies-explorer__.
+Backend проекта movies-explorer. Сервер расположен на yandex.cloud.
 
-## Роуты
+## Описание
+
+Сервер для обработки запросов клиента [movies-explorer](https://va-movies-explorer.nomoredomains.xyz), использующий базу данных NoSQL - **MongoDB**.
+<br />
+Настройка сервера в yandex.cloud проводилась на операционной системе **Ubuntu**. Также с выпуском SSL - сертификата.
+
+## Инструменты
+
+- **express.js** - веб-фреймворк для приложений Node.js.
+
+- **helmet** - безопасность с помощью HTTP-заголовков.
+
+- **body-parser** - сборка пакетов.
+
+- **rate limit** - ограничение запросов.
+
+- **path** - модуль для работы с путями в файловой системе.
+
+- **cookie-parser** - модуль для корректной работы *cookie* в *express*.
+
+- **celebrate** - валидация с помощью библиотеки Joi.
+
+- **validator** - валидация схем.
+
+- **bcrypt** - хеширования паролей.
+
+- **jwt** - выпуск токена.
+
+- **CORS** - защита от нежелательных запросов.
+
+### Роуты
 
 - /signup - post(Создать профиль)
 - /signin - post(Войти)
 - /signout - get(Удалить куки)
-
+***
 - /users/me - get(Получить профиль)
 - /users/me - patch(Обновить профиль)
-
+***
 - /movies - get(Получить сохраненные фильмы)
 - /movies - post(Сохранить фильм)
 - /movies/:movieId - delete(Удалить сохраненный фильм)
 
-## Ссылка на сервер:
+## Примечания
 
-1. https://api.va-movies-explorer.nomoredomains.xyz
-2. http://api.va-movies-explorer.nomoredomains.xyz
+- Использвание *routers*. Валидция всех *routers* описанна в отдельном *middleware* - **validation.js**.
 
-Логин для ревью: ssh mrchibichan@51.250.30.213
+- Важные переменные описаны в отдельном конфигурационном файле NODE_ENV.
+
+- Токен пользователя сохраняется в *cookie*.
+
+- Код каждой ошибки описан в отдельным классе.
+
+- Использование связей + статические функции **MongoDB**.
+
+- Централизованный обработчик ошибок.
+
+**Ссылка на сервер:** https://api.va-movies-explorer.nomoredomains.xyz
