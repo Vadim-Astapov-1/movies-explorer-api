@@ -1,6 +1,6 @@
 const allowedCors = [
-  'https://va-movies-explorer.nomoredomains.xyz',
-  'http://va-movies-explorer.nomoredomains.xyz',
+  'https://va-movies-explorer.ru',
+  'http://va-movies-explorer.ru',
 ];
 
 const cors = (req, res, next) => {
