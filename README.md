@@ -1,6 +1,6 @@
-# movies-explorer-api
+# Проект «Movies-explorer»
 
-Backend проекта movies-explorer на облачном сервере Yandex.Cloud.
+Backend проекта movies-explorer. Расположен на облачном сервере Yandex.Cloud.
 
 ## Описание
 
@@ -31,8 +31,8 @@ Backend проекта movies-explorer на облачном сервере Yand
 
 1. bcryptjs: ^2.4.3
 2. body-parser: ^1.19.1
-3. celebrate: "^15.0.0
-4. cookie-parser: "^1.4.6
+3. celebrate: ^15.0.0
+4. cookie-parser: ^1.4.6
 5. dotenv: ^16.0.0
 6. express: ^4.17.2
 7. express-rate-limit: ^6.3.0
@@ -46,13 +46,13 @@ Backend проекта movies-explorer на облачном сервере Yand
 15. eslint: ^8.5.0
 16. eslint-config-airbnb-base: ^15.0.0
 17. eslint-plugin-import: ^2.25.3
-18. nodemon": ^2.0.15
+18. nodemon: ^2.0.15
 
 ## Примечания
 
 - CORS
 
-- Валидция всех routers описанна в отдельном middleware - validation.js.
+- Валидция всех роутов описанна в отдельном middleware - validation.js.
 
 - Использование переменных окружения .env.
 
